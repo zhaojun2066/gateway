@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta charset="utf-8" />
+		<title>gateway</title>
+
+		<meta name="description" content="overview &amp; stats" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+		<!-- bootstrap & fontawesome -->
+		<link rel="stylesheet" href="/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="/bootstrapvalidator/css/bootstrapValidator.min.css"/>
+		<link rel="stylesheet" href="/font-awesome/4.5.0/css/font-awesome.min.css" />
+
+		<!-- page specific plugin styles -->
+
+		<!-- text fonts -->
+		<link rel="stylesheet" href="/css/fonts.googleapis.com.css" />
+
+		<!-- ace styles -->
+		<link rel="stylesheet" href="/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
+
+		<!--[if lte IE 9]>
+		<link rel="stylesheet" href="/css/ace-part2.min.css" class="ace-main-stylesheet" />
+		<![endif]-->
+		<link rel="stylesheet" href="/css/ace-skins.min.css" />
+		<link rel="stylesheet" href="/css/ace-rtl.min.css" />
+        <link rel="stylesheet" href="/css/select2.css" />
+		<!--[if lte IE 9]>
+		  <link rel="stylesheet" href="/css/ace-ie.min.css" />
+		<![endif]-->
+
+        <link rel="stylesheet" href="/css/jquery-confirm.css" />
+
+
+        <!-- page specific plugin styles -->
+        <link rel="stylesheet" href="/css/jquery-ui.min.css" />
+
+		<!-- ace settings handler -->
+		<script src="/js/ace-extra.min.js"></script>
+
+		<!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
+
+		<!--[if lte IE 8]>
+		<script src="/js/html5shiv.min.js"></script>
+		<script src="/js/respond.min.js"></script>
+		<![endif]-->
+	</head>
+
+	<body class="no-skin">
+        <div id="navbar" class="navbar navbar-default ace-save-state"  th:include="commons/header :: copy"></div>
+		<div class="main-container ace-save-state" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.loadState('main-container')}catch(e){}
+			</script>
+
+			<div id="sidebar" class="sidebar responsive ace-save-state" th:include="commons/main_sidebar :: copy">
+			</div>
+
+			<div class="main-content">
+				<div class="main-content-inner">
+					<div class="breadcrumbs ace-save-state" id="breadcrumbs">
+						<ul class="breadcrumb">
+							<li>
+								<i class="ace-icon fa fa-home home-icon"></i>
+								<a href="#">首页</a>
+							</li>
+                            <li>
+                                <a href="#">配置</a>
+                            </li>
+							<li class="active">业务分组</li>
+						</ul><!-- /.breadcrumb -->
+
+						<div class="nav-search" id="nav-search">
+							<form class="form-search">
+								<span class="input-icon">
+									<input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
+									<i class="ace-icon fa fa-search nav-search-icon"></i>
+								</span>
+							</form>
+						</div><!-- /.nav-search -->
+					</div>
+
+					<div class="page-content">
+						<div class="page-header">
+							<h1>
+                                配置
+								<small>
+									<i class="ace-icon fa fa-angle-double-right"></i>
+                                    业务分组
+								</small>
+							</h1>
+						</div><!-- /.page-header -->
+
+						<div class="row">
+							<div class="col-xs-12">
+                                <form role="form" id="">
+                                <table>
+                                    <tr>
+                                        <td style="padding:8px;">　<button class="btn btn-sm btn-primary" type="submit">查询</button></td>
+                                        <td style="padding:8px;">
+                                            <a class="btn btn-sm btn-primary"  href="#addGroupModal" data-toggle="modal"  data-target="#addGroupModal" th:onclick="'javascript:openEPWin(\''+'/group/toAdd\',\''+addGroupModalC+'\');'">添加</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                                </form>
+                                <div class="hr hr-18 dotted"></div>
+                             <!--   <div class="table-header">
+                                    Results for "Latest Registered Domains"
+                                </div>-->
+                                <table id="simple-table" class="table  table-bordered table-hover no-margin-bottom">
+                                    <thead>
+
+                                    <tr>
+                                        <th>分组</th>
+                                        <th>备注</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr  th:each="group : ${groups}">
+                                        <td th:text="${group.name}"></td>
+                                        <td th:text="${group.remark}"></td>
+                                        <td>
+                                            <div class="hidden-sm hidden-xs btn-group">
+                                                <a href="#" class="btn btn-xs btn-danger"  onclick="deleteById(this,'/group/delete')" th:value="${group.name}">删除</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+                        <div class="box-footer clearfix" style="margin-top: 15px;">
+                        </div>
+					</div><!-- /.page-content -->
+				</div>
+			</div><!-- /.main-content -->
+
+			<div class="footer"  th:include="commons/footer :: copy">
+			</div>
+			<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+				<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+			</a>
+		</div><!-- /.main-container -->
+
+		<!-- basic scripts -->
+
+        <!-- add func window -->
+        <div class="modal" id="addGroupModal"  tabindex="-1" role="dialog" aria-labelledby="addModalLabel">
+            <div class="modal-dialog">
+                <div class="modal-content" id="addGroupModalC" >
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- add func window-->
+
+        <div class="modal" id="updateGroupModal"  tabindex="-1" role="dialog" aria-labelledby="addModalLabel">
+            <div class="modal-dialog">
+                <div class="modal-content" id="updateGroupModalC" >
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+
+        <!-- update window-->
+        <script src="/js/jquery-2.1.4.min.js"></script>
+        <script src="/js/select2.js"></script>
+        <!-- <![endif]-->
+        <!--[if IE]>
+        <script src="/js/jquery-1.11.3.min.js"></script>
+        <![endif]-->
+        <script src="/js/bootstrap.min.js"></script>
+        <!-- page specific plugin scripts -->
+
+        <!--[if lte IE 8]>
+        <script src="/js/excanvas.min.js"></script>
+        <![endif]-->
+        <script src="/bootstrapvalidator/js/bootstrapValidator2.min.js"></script>
+        <script src="/bootstrapvalidator/js/language/zh_CN.js"></script>
+        <script src="/js/jquery-ui.custom.min.js"></script>
+        <script src="/js/jquery.ui.touch-punch.min.js"></script>
+        <script src="/js/jquery.easypiechart.min.js"></script>
+        <script src="/js/jquery.sparkline.index.min.js"></script>
+        <script src="/js/jquery.flot.min.js"></script>
+        <script src="/js/jquery.flot.pie.min.js"></script>
+        <script src="/js/jquery.flot.resize.min.js"></script>
+
+        <!-- ace scripts -->
+        <script src="/js/ace-elements.min.js"></script>
+        <script src="/js/ace.min.js"></script>
+        <script src="/js/init.js"></script>
+        <script src="/alert/js/jquery-confirm.js"></script>
+        <script src="/script/common.js"></script>
+        <script src="/js/jquery.slimscroll.js"></script>
+        <script src="/script/form.js"></script>
+        <script src="/script/delete.js"></script>
+        <script src="/script/win.js"></script>
+        <!--[if lte IE 8 ]>
+        <script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+        <script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+        <script src="/h5/js/amazeui.ie8polyfill.min.js"></script>
+        <![endif]-->
+        <script src="/h5/js/amazeui.min.js"></script>
+        <script src="/js/outPageValue.js"></script>
+        <script src="/h5/js/index.js"></script>
+
+<!-- inline scripts related to this page -->
+<script type="text/javascript">
+
+</script>
+ </body>
+</html>
