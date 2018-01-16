@@ -15,6 +15,13 @@ public class Info {
 
     private Map<String,Method> methods;//key Method name
 
+    private Map<String,String> whiteips; //
+
+
+    private Map<String,String> blackips; //黑名单ip List
+
+
+
 
     public Map<String, Group> getGroups() {
         return groups;

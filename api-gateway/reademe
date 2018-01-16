@@ -1,0 +1,22 @@
+todo:
+更新配置,
+  新增配置直接增加
+  修改删除老的,在新增(并发的限流策略,需要删除旧的redis 和 local_limit
+  关闭接口 和 限流关闭时候,需要删除对应的redis 和  local_limit
+
+统计日志,统计状态(http code),延迟时间等发送到kafka,实时监控api性能变化
+
+手动降级开关
+  直接返回错误信息
+  直接跳转到等待页面
+  直接返回兜底数据的url
+
+tomcat 启动注册zookeeper
+
+
+WAF
+
+签名校验
+
+鉴权
+appid + sign + token
